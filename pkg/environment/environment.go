@@ -77,6 +77,8 @@ func (r RunMode) String() string {
 		return "production"
 	case RunningTest:
 		return "testing"
+	case RunningDev4:
+		return "development-v4"
 	}
 
 	return "unknown"
@@ -92,6 +94,9 @@ const (
 	RunningTest RunMode = "test"
 	// RunningMain mode
 	RunningMain RunMode = "prod"
+
+	// FIXME: zos-v4 hotfix
+	RunningDev4 RunMode = "dev-v4"
 
 	// Orphanage is the default farmid where nodes are registered
 	// if no farmid were specified on the kernel command line
@@ -118,6 +123,23 @@ var (
 		BinRepo:       "tf-zos-v3-bins.dev",
 		GraphQL:       "https://graphql.dev.grid.tf/graphql",
 	}
+
+	// FIXME: hotfix zos-v4
+	envDev4 = Environment{
+		RunningMode: RunningDev4,
+		SubstrateURL: []string{
+			"wss://tfchain.dev.grid.tf/",
+		},
+		RelayURL: []string{
+			"wss://relay.dev.grid.tf",
+			"wss://relay.02.dev.grid.tf",
+		},
+		ActivationURL: "https://activation.dev.grid.tf/activation/activate",
+		FlistURL:      "redis://hub.grid.tf:9900",
+		BinRepo:       "tf-zos-v3-bins-FIXME.dev",
+		GraphQL:       "https://graphql.dev.grid.tf/graphql",
+	}
+
 
 	envTest = Environment{
 		RunningMode: RunningTest,
@@ -214,9 +236,21 @@ func getEnvironmentFromParams(params kernel.Params) (Environment, error) {
 		runmode = string(RunningMain)
 	}
 
+	version := "v3" // default to zos-v3
+	if vercheck, ok := params.Get("version"); ok {
+		if len(vercheck) >= 1 {
+			version = vercheck[0]
+		}
+	}
+
 	switch RunMode(runmode) {
 	case RunningDev:
-		env = envDev
+		if version == "v4" {
+			// zos-v4
+			env = envDev4
+		} else {
+			env = envDev
+		}
 	case RunningQA:
 		env = envQA
 	case RunningTest:
