@@ -8,8 +8,14 @@ table inet filter {
 	}
 
 	chain output {
-		type filter hook output priority filter; policy drop;
-		ip daddr 192.168.1.1 accept # the router ip
+       type filter hook output priority filter; policy accept;
+       ip daddr 192.168.123.32 accept
+       ip daddr { 8.8.8.8, 1.1.1.1, 192.168.123.1 } udp dport 53 accept
+       ip daddr 192.168.123.32 tcp dport { 80, 443, 22 } accept
+       tcp dport 443 accept
+       ct state established,related accept
+       ip protocol icmp accept
+       meta nfproto ipv4 drop
 	}
 
 	chain prerouting {
