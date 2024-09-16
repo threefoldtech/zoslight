@@ -39,12 +39,12 @@ func Apply(r io.Reader, ns string) error {
 
 // UpdateNFTWhitelist periodically pull list of ips from config repo and
 // update the nft white list
-func UpdateNFTWhitelist() error {
+func UpdateNFTWhitelist(configFileUrl string) error {
 	scheduler := gocron.NewScheduler(time.UTC)
 	cron := "0 * * * *"
 
 	updateWhitelist := func() error {
-		ips, err := whiteList()
+		ips, err := whiteList(configFileUrl)
 		if err != nil {
 			return err
 		}
@@ -97,10 +97,20 @@ func runCommand(cmdStr string) error {
 	return nil
 }
 
-func whiteList() ([]string, error) {
-	cfg, err := environment.GetConfig()
-	if err != nil {
-		return nil, err
+func whiteList(configFileUrl string) ([]string, error) {
+	var cfg environment.Config
+	var err error
+
+	if configFileUrl != "" {
+		cfg, err = environment.GetConfigForUrl(configFileUrl)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		cfg, err = environment.GetConfig()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return cfg.Whitelist.Ips, nil

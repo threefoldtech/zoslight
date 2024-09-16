@@ -58,6 +58,19 @@ func GetConfigForMode(mode RunMode) (Config, error) {
 	return getConfig(mode, baseExtendedURL, httpClient)
 }
 
+func GetConfigForUrl(configRepo string) (Config, error) {
+	env, err := Get()
+	if err != nil {
+		return Config{}, err
+	}
+
+	httpClient := &http.Client{
+		Timeout: defaultHttpTimeout,
+	}
+
+	return getConfig(env.RunningMode, configRepo, httpClient)
+}
+
 func uniqueStr(slice []string) []string {
 	keys := make(map[string]struct{})
 	list := slice[:0]

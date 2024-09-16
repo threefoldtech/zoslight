@@ -11,6 +11,7 @@ import (
 
 	"github.com/oasisprotocol/curve25519-voi/primitives/x25519"
 	"github.com/pkg/errors"
+	"github.com/threefoldtech/zos/pkg/kernel"
 	"github.com/threefoldtech/zos/pkg/netlight"
 	"github.com/threefoldtech/zos/pkg/netlight/nft"
 	"github.com/threefoldtech/zos/pkg/netlight/resource"
@@ -68,6 +69,8 @@ func action(cli *cli.Context) error {
 		workerNr uint   = cli.Uint("workers")
 	)
 
+	configFileUrl, _ := kernel.GetParams().GetOne("config-url")
+
 	if err := os.MkdirAll(root, 0755); err != nil {
 		return errors.Wrap(err, "fail to create module root")
 	}
@@ -108,7 +111,7 @@ func action(cli *cli.Context) error {
 	}
 	rules.Close()
 
-	if err := nft.UpdateNFTWhitelist(); err != nil {
+	if err := nft.UpdateNFTWhitelist(configFileUrl); err != nil {
 		return fmt.Errorf("failed to allow whitelist outgoing traffic")
 	}
 
