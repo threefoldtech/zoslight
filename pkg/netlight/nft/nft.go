@@ -1,10 +1,14 @@
 package nft
 
 import (
+	"fmt"
 	"io"
 	"os/exec"
+	"time"
 
+	"github.com/go-co-op/gocron"
 	"github.com/rs/zerolog/log"
+	"github.com/threefoldtech/zos/pkg/environment"
 
 	"github.com/pkg/errors"
 )
@@ -31,4 +35,73 @@ func Apply(r io.Reader, ns string) error {
 		return errors.Wrap(err, "failed to execute nft")
 	}
 	return nil
+}
+
+// UpdateNFTWhitelist periodically pull list of ips from config repo and
+// update the nft white list
+func UpdateNFTWhitelist() error {
+	scheduler := gocron.NewScheduler(time.UTC)
+	cron := "0 * * * *"
+
+	updateWhitelist := func() error {
+		ips, err := whiteList()
+		if err != nil {
+			return err
+		}
+
+		cmds := []string{
+			"nft flush chain inet filter output",
+			"nft add rule inet filter output ct state established,related accept",
+			"nft add rule inet filter output tcp dport 22 accept",
+		}
+
+		ipCmdTemplate := "nft add rule inet filter output ip daddr %s accept"
+		blockCmd := "nft add rule inet filter output drop"
+
+		for _, cmd := range cmds {
+			if err := runCommand(cmd); err != nil {
+				return nil
+			}
+		}
+
+		for _, ip := range ips {
+			if err := runCommand(fmt.Sprintf(ipCmdTemplate, ip)); err != nil {
+				return nil
+			}
+		}
+
+		if err := runCommand(blockCmd); err != nil {
+			return nil
+		}
+
+		return nil
+	}
+
+	if err := updateWhitelist(); err != nil {
+		return err
+	}
+
+	if _, err := scheduler.Cron(cron).Do(updateWhitelist); err != nil {
+		return err
+	}
+	scheduler.StartAsync()
+
+	return nil
+}
+
+func runCommand(cmdStr string) error {
+	cmd := exec.Command("sh", "-c", cmdStr)
+	if output, err := cmd.CombinedOutput(); err != nil {
+		return fmt.Errorf("command failed: %s, output: %s", err, output)
+	}
+	return nil
+}
+
+func whiteList() ([]string, error) {
+	cfg, err := environment.GetConfig()
+	if err != nil {
+		return nil, err
+	}
+
+	return cfg.Whitelist.Ips, nil
 }

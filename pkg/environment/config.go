@@ -27,6 +27,9 @@ type Config struct {
 	Users struct {
 		Authorized []string `json:"authorized"`
 	} `json:"users"`
+	Whitelist struct {
+		Ips []string `json:"ips"`
+	} `json:"whitelist"`
 }
 
 // Merge, updates current config with cfg merging and override config
