@@ -13,19 +13,19 @@ import (
 	"github.com/rs/zerolog/log"
 	substrate "github.com/threefoldtech/tfchain/clients/tfchain-client-go"
 	"github.com/threefoldtech/zbus"
+	"github.com/threefoldtech/zos/pkg"
 	"github.com/threefoldtech/zos/pkg/app"
 	"github.com/threefoldtech/zos/pkg/environment"
-	"github.com/threefoldtech/zos/pkg/geoip"
 	"github.com/threefoldtech/zos/pkg/stubs"
+	"github.com/threefoldtech/zos4/pkg/geoip"
 )
 
 // should any of this be moved to pkg?
-type RegistrationState string
 
 const (
-	Failed     RegistrationState = "Failed"
-	InProgress RegistrationState = "InProgress"
-	Done       RegistrationState = "Done"
+	Failed     pkg.RegistrationState = "Failed"
+	InProgress pkg.RegistrationState = "InProgress"
+	Done       pkg.RegistrationState = "Done"
 
 	monitorAccountEvery    = 30 * time.Minute
 	updateLocationInterval = 24 * time.Hour
@@ -36,15 +36,8 @@ var (
 	ErrFailed     = errors.New("registration failed")
 )
 
-type State struct {
-	NodeID uint32
-	TwinID uint32
-	State  RegistrationState
-	Msg    string
-}
-
-func FailedState(err error) State {
-	return State{
+func FailedState(err error) pkg.State {
+	return pkg.State{
 		0,
 		0,
 		Failed,
@@ -52,8 +45,8 @@ func FailedState(err error) State {
 	}
 }
 
-func InProgressState() State {
-	return State{
+func InProgressState() pkg.State {
+	return pkg.State{
 		0,
 		0,
 		InProgress,
@@ -61,8 +54,8 @@ func InProgressState() State {
 	}
 }
 
-func DoneState(nodeID uint32, twinID uint32) State {
-	return State{
+func DoneState(nodeID uint32, twinID uint32) pkg.State {
+	return pkg.State{
 		nodeID,
 		twinID,
 		Done,
@@ -71,13 +64,13 @@ func DoneState(nodeID uint32, twinID uint32) State {
 }
 
 type Registrar struct {
-	state State
+	state pkg.State
 	mutex sync.RWMutex
 }
 
 func NewRegistrar(ctx context.Context, cl zbus.Client, env environment.Environment, info RegistrationInfo) *Registrar {
 	r := Registrar{
-		state: State{
+		pkg.State{
 			0,
 			0,
 			InProgress,
@@ -90,13 +83,13 @@ func NewRegistrar(ctx context.Context, cl zbus.Client, env environment.Environme
 	return &r
 }
 
-func (r *Registrar) setState(s State) {
+func (r *Registrar) setState(s pkg.State) {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 	r.state = s
 }
 
-func (r *Registrar) getState() State {
+func (r *Registrar) GetState() pkg.State {
 	r.mutex.RLock()
 	defer r.mutex.RUnlock()
 	return r.state
@@ -152,16 +145,10 @@ func (r *Registrar) register(ctx context.Context, cl zbus.Client, env environmen
 			if err := r.reActivate(ctx, cl, env); err != nil {
 				log.Error().Err(err).Msg("failed to reactivate account")
 			}
-<<<<<<< HEAD
-		case <-time.After(updateNodeInfoInterval):
-			log.Info().Msg("update interval passed, re-register")
-			register()
-=======
 		case <-time.After(updateLocationInterval):
 			if err := r.updateLocation(ctx, cl); err != nil {
 				log.Error().Err(err).Msg("updating location failed")
 			}
->>>>>>> 3b559b8b (move the location update to the register pkg)
 		case <-addressesUpdate:
 			log.Info().Msg("zos address has changed, re-register")
 			register()
@@ -218,11 +205,11 @@ func (r *Registrar) updateLocation(ctx context.Context, cl zbus.Client) error {
 }
 
 func (r *Registrar) NodeID() (uint32, error) {
-	return r.returnIfDone(r.getState().NodeID)
+	return r.returnIfDone(r.GetState().NodeID)
 }
 
 func (r *Registrar) TwinID() (uint32, error) {
-	return r.returnIfDone(r.getState().TwinID)
+	return r.returnIfDone(r.GetState().TwinID)
 }
 
 func (r *Registrar) returnIfDone(v uint32) (uint32, error) {
