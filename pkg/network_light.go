@@ -3,6 +3,8 @@ package pkg
 import (
 	"context"
 	"net"
+
+	"github.com/threefoldtech/zos/pkg/gridtypes/zos"
 )
 
 type Route struct {
@@ -17,7 +19,7 @@ type Route struct {
 
 // NetworkerLight is the interface for the network light module
 type NetworkerLight interface {
-	Create(name string, privateNet net.IPNet, seed []byte) error
+	Create(name string, net zos.NetworkLight) error
 	Delete(name string) error
 	AttachPrivate(name, id string, vmIp net.IP) (device TapDevice, err error)
 	AttachMycelium(name, id string, seed []byte) (device TapDevice, err error)
@@ -29,6 +31,8 @@ type NetworkerLight interface {
 	Ready() error
 	ZOSAddresses(ctx context.Context) <-chan NetlinkAddresses
 	GetSubnet(networkID NetID) (net.IPNet, error)
+
+	WireguardPorts() ([]uint, error)
 }
 
 type TapDevice struct {

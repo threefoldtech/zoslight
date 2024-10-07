@@ -55,6 +55,10 @@ func NetworkIDFromWorkloadID(wl gridtypes.WorkloadID) (NetID, error) {
 // - For each PC or a laptop (for each wireguard peer) there must be a peer in the peer list (on all nodes)
 // This is why this can get complicated.
 type NetworkLight struct {
+	// IP range of the network, must be an IPv4 /16
+	// for example a 10.1.0.0/16
+	NetworkIPRange gridtypes.IPNet `json:"ip_range"`
+
 	// IPV4 subnet for this network resource
 	// this must be a valid subnet of the entire network ip range.
 	// for example 10.1.1.0/24
@@ -65,6 +69,36 @@ type NetworkLight struct {
 	// if no mycelium configuration is provided, vms can't
 	// get mycelium IPs.
 	Mycelium Mycelium `json:"mycelium,omitempty"`
+
+	// The private wg key of this node (this peer) which is installing this
+	// network workload right now.
+	// This has to be filled in by the user (and not generated for example)
+	// because other peers need to be installed as well (with this peer public key)
+	// hence it's easier to configure everything one time at the user side and then
+	// apply everything on all nodes at once
+	WGPrivateKey string `json:"wireguard_private_key"`
+
+	// WGListenPort is the wireguard listen port on this node. this has
+	// to be filled in by the user for same reason as private key (other nodes need to know about it)
+	// To find a free port you have to ask the node first by a call over RMB about which ports are possible
+	// to use.
+	WGListenPort uint16 `json:"wireguard_listen_port"`
+
+	// Peers is a list of other peers in this network
+	Peers []Peer `json:"peers"`
+}
+
+// Peer is the description of a peer of a NetResource
+type Peer struct {
+	// IPV4 subnet of the network resource of the peer
+	Subnet gridtypes.IPNet `json:"subnet"`
+	// WGPublicKey of the peer (driven from its private key)
+	WGPublicKey string `json:"wireguard_public_key"`
+	// Allowed Ips is related to his subnet.
+	// todo: remove and derive from subnet
+	AllowedIPs []gridtypes.IPNet `json:"allowed_ips"`
+	// Entrypoint of the peer
+	Endpoint string `json:"endpoint"`
 }
 
 type MyceliumPeer string

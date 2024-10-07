@@ -11,6 +11,7 @@ import (
 
 	"github.com/oasisprotocol/curve25519-voi/primitives/x25519"
 	"github.com/pkg/errors"
+	"github.com/threefoldtech/zos/pkg/gridtypes/zos"
 	"github.com/threefoldtech/zos/pkg/netlight"
 	"github.com/threefoldtech/zos/pkg/netlight/nft"
 	"github.com/threefoldtech/zos/pkg/netlight/resource"
@@ -115,8 +116,7 @@ func action(cli *cli.Context) error {
 	_, err = resource.Create("dmz", bridge, &net.IPNet{
 		IP:   net.ParseIP("100.127.0.2"),
 		Mask: net.CIDRMask(16, 32),
-	}, netlight.NDMZGwIP, nil, myceliumSeedFromIdentity(identity.PrivateKey(cli.Context)))
-
+	}, netlight.NDMZGwIP, nil, myceliumSeedFromIdentity(identity.PrivateKey(cli.Context)), net.IPNet{}, zos.NetworkLight{})
 	if err != nil {
 		return fmt.Errorf("failed to create ndmz resource: %w", err)
 	}
