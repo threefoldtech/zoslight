@@ -10,6 +10,10 @@ import (
 	"github.com/threefoldtech/zos/pkg/gridtypes"
 )
 
+func (g *ZosAPI) networkListWGPortsHandler(ctx context.Context, payload []byte) (interface{}, error) {
+	return g.networkerLightStub.WireguardPorts(ctx)
+}
+
 func (g *ZosAPI) networkInterfacesHandler(ctx context.Context, payload []byte) (interface{}, error) {
 	results := make(map[string][]net.IPNet)
 	interfaces, err := g.networkerLightStub.Interfaces(ctx, "zos", "")

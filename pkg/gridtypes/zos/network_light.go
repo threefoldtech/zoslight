@@ -55,10 +55,6 @@ func NetworkIDFromWorkloadID(wl gridtypes.WorkloadID) (NetID, error) {
 // - For each PC or a laptop (for each wireguard peer) there must be a peer in the peer list (on all nodes)
 // This is why this can get complicated.
 type NetworkLight struct {
-	// IP range of the network, must be an IPv4 /16
-	// for example a 10.1.0.0/16
-	NetworkIPRange gridtypes.IPNet `json:"ip_range"`
-
 	// IPV4 subnet for this network resource
 	// this must be a valid subnet of the entire network ip range.
 	// for example 10.1.1.0/24
@@ -70,6 +66,9 @@ type NetworkLight struct {
 	// get mycelium IPs.
 	Mycelium Mycelium `json:"mycelium,omitempty"`
 
+	// IP range of the network, must be an IPv4 /16
+	// for example a 10.1.0.0/16
+	NetworkIPRange gridtypes.IPNet `json:"ip_range"`
 	// The private wg key of this node (this peer) which is installing this
 	// network workload right now.
 	// This has to be filled in by the user (and not generated for example)
