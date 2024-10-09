@@ -8,6 +8,7 @@ import (
 	"context"
 	zbus "github.com/threefoldtech/zbus"
 	pkg "github.com/threefoldtech/zos/pkg"
+	gridtypes "github.com/threefoldtech/zos/pkg/gridtypes"
 	zos "github.com/threefoldtech/zos/pkg/gridtypes/zos"
 	"net"
 )
@@ -80,8 +81,8 @@ func (s *NetworkerLightStub) AttachZDB(ctx context.Context, arg0 string) (ret0 s
 	return
 }
 
-func (s *NetworkerLightStub) Create(ctx context.Context, arg0 string, arg1 zos.NetworkLight) (ret0 error) {
-	args := []interface{}{arg0, arg1}
+func (s *NetworkerLightStub) Create(ctx context.Context, arg0 string, arg1 gridtypes.WorkloadID, arg2 zos.NetworkLight) (ret0 error) {
+	args := []interface{}{arg0, arg1, arg2}
 	result, err := s.client.RequestContext(ctx, s.module, s.object, "Create", args...)
 	if err != nil {
 		panic(err)
@@ -95,7 +96,7 @@ func (s *NetworkerLightStub) Create(ctx context.Context, arg0 string, arg1 zos.N
 	return
 }
 
-func (s *NetworkerLightStub) Delete(ctx context.Context, arg0 string) (ret0 error) {
+func (s *NetworkerLightStub) Delete(ctx context.Context, arg0 gridtypes.WorkloadWithID) (ret0 error) {
 	args := []interface{}{arg0}
 	result, err := s.client.RequestContext(ctx, s.module, s.object, "Delete", args...)
 	if err != nil {
