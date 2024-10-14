@@ -21,7 +21,7 @@ type Route struct {
 // NetworkerLight is the interface for the network light module
 type NetworkerLight interface {
 	Create(name string, wl gridtypes.WorkloadID, net zos.NetworkLight) error
-	Delete(wl gridtypes.WorkloadWithID) error
+	Delete(name string, wl gridtypes.WorkloadWithID) error
 	AttachPrivate(name, id string, vmIp net.IP) (device TapDevice, err error)
 	AttachMycelium(name, id string, seed []byte) (device TapDevice, err error)
 	Detach(id string) error
@@ -31,8 +31,10 @@ type NetworkerLight interface {
 	Namespace(id string) string
 	Ready() error
 	ZOSAddresses(ctx context.Context) <-chan NetlinkAddresses
-	GetSubnet(networkID NetID) (net.IPNet, error)
 
+	GetSubnet(name string) (net.IPNet, error)
+	GetDefaultGwIP(name string) (net.IP, error)
+	GetNet(name string) (net.IPNet, error)
 	WireguardPorts() ([]uint, error)
 }
 
