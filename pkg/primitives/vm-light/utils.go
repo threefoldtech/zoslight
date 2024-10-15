@@ -246,6 +246,8 @@ func (p *Manager) newPrivNetworkInterface(ctx context.Context, dl gridtypes.Depl
 		return pkg.VMIface{}, errors.Wrap(err, "could not set up tap device for private interface")
 	}
 
+	iface.Routes = append(iface.Routes, pkg.Route{Net: privNet, Gateway: gw4})
+
 	out := pkg.VMIface{
 		Tap: iface.Name,
 		MAC: iface.Mac.String(),
@@ -254,11 +256,7 @@ func (p *Manager) newPrivNetworkInterface(ctx context.Context, dl gridtypes.Depl
 			addrCIDR,
 			// privIP6,
 		},
-		// Routes: iface.Routes,
-		Routes: []pkg.Route{
-			{Net: privNet, Gateway: gw4},
-			{Net: networkResourceNet, Gateway: gw4},
-		},
+		Routes:            iface.Routes,
 		IP4DefaultGateway: net.IP(iface.Routes[0].Gateway),
 		// IP6DefaultGateway: gw6,
 		PublicIPv4: false,
