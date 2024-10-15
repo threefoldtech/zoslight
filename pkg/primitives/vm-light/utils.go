@@ -17,11 +17,6 @@ import (
 	"github.com/threefoldtech/zos4/pkg/stubs"
 )
 
-var networkResourceNet = net.IPNet{
-	IP:   net.ParseIP("100.64.0.0"),
-	Mask: net.IPv4Mask(0xff, 0xff, 0, 0),
-}
-
 // fill up the VM (machine) object with write boot config for a full virtual machine (with a disk image)
 func (p *Manager) prepVirtualMachine(
 	ctx context.Context,
