@@ -257,7 +257,9 @@ func (p *btrfsPool) Usage() (usage Usage, err error) {
 
 	usage.Size = p.device.Size
 
+	fmt.Println("we here")
 	for _, volume := range volumes {
+		fmt.Printf("%v\n", volume)
 		vol, err := volume.Usage()
 		if err != nil {
 			return Usage{}, errors.Wrapf(err, "failed to calculate volume '%s' usage", volume.Path())

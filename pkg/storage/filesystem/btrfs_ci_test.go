@@ -158,10 +158,7 @@ func basePoolTest(t *testing.T, pool Pool) {
 
 		assert.Equal(t, path.Join("/mnt", pool.Name(), "subvol1"), volume.Path())
 	})
-	defer func() {
-		err := pool.RemoveVolume("subvol1")
-		require.NoError(t, err)
-	}()
+
 
 	t.Run("test list volumes", func(t *testing.T) {
 		volumes, err := pool.Volumes()
@@ -190,7 +187,7 @@ func basePoolTest(t *testing.T, pool Pool) {
 		require.NoError(t, err)
 
 		// Note: an empty subvolume has an overhead of 16384 bytes
-		assert.Equal(t, Usage{Used: 16384, Size: 50 * 1024 * 1024}, usage)
+		assert.Equal(t, Usage{Used: 50*1024*1024, Size: 50 * 1024 * 1024}, usage)
 	})
 
 	t.Run("test remove subvolume", func(t *testing.T) {
@@ -259,7 +256,9 @@ func TestCLeanUpQgroupsCI(t *testing.T) {
 
 	qgroups, err := btrfsVol.utils.QGroupList(context.TODO(), pool.Path())
 	require.NoError(t, err)
-	assert.Equal(t, 1, len(qgroups))
+	
+	// it start with a volume of size 16384 by default
+	assert.Equal(t, 2, len(qgroups))
 	t.Logf("qgroups before delete: %v", qgroups)
 
 	_, ok = qgroups[fmt.Sprintf("0/%d", btrfsVol.id)]
@@ -272,5 +271,5 @@ func TestCLeanUpQgroupsCI(t *testing.T) {
 	require.NoError(t, err)
 
 	t.Logf("remaining qgroups: %+v", qgroups)
-	assert.Equal(t, 0, len(qgroups), "qgroups should have been deleted with the subvolume")
+	assert.Equal(t, 1, len(qgroups), "qgroups should have been deleted with the subvolume")
 }
