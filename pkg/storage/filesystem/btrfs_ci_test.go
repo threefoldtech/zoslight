@@ -23,7 +23,6 @@ import (
 	"path"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -167,7 +166,6 @@ func basePoolTest(t *testing.T, pool Pool) {
 		assert.Len(t, volumes, 1)
 	})
 
-	time.Sleep(30 * time.Second)
 	t.Run("test usage", func(t *testing.T) {
 		usage, err := pool.Usage()
 		require.NoError(t, err)
