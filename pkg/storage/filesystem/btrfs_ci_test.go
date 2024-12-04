@@ -23,6 +23,7 @@ import (
 	"path"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -166,6 +167,7 @@ func basePoolTest(t *testing.T, pool Pool) {
 		assert.Len(t, volumes, 1)
 	})
 
+	time.Sleep(30 * time.Second)
 	t.Run("test usage", func(t *testing.T) {
 		usage, err := pool.Usage()
 		require.NoError(t, err)
@@ -185,7 +187,6 @@ func basePoolTest(t *testing.T, pool Pool) {
 		usage, err = volume.Usage()
 		require.NoError(t, err)
 
-		// Note: an empty subvolume has an overhead of 16384 bytes
 		assert.Equal(t, Usage{Used: 50 * 1024 * 1024, Size: 50 * 1024 * 1024}, usage)
 	})
 
