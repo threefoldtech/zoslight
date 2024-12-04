@@ -75,7 +75,7 @@ func SetupDevices(count int) (devices TestDevices, err error) {
 
 	for i := 0; i < count; i++ {
 		var dev *os.File
-		dev, err = os.CreateTemp("", "loop-test-")
+		dev, err = os.CreateTemp("", "dev/")
 		if err != nil {
 			return
 		}
