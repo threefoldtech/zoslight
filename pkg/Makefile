@@ -20,7 +20,7 @@ test: lint build
 	go test -vet=off -v $(shell go list ./... | grep -Ev "stubs|network" )
 
 testrace: lint build
-	sudo -E ${GOBINARY} test -vet=off -v $(shell go list ./... | grep -Ev "stubs|network" )
+	go test -vet=off -v $(shell go list ./... | grep -Ev "stubs|network" )
 
 generate:
 	@echo "Generating modules client stubs"

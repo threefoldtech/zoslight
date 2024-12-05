@@ -28,10 +28,10 @@ func TestCreatePublicNS(t *testing.T) {
 		require.NoError(t, err)
 	}()
 
-	_, err := bridge.New("br-pub")
+	_, err := bridge.New(PublicBridge)
 	require.NoError(t, err)
 	defer func() {
-		err = bridge.Delete("br-pub")
+		err = bridge.Delete(PublicBridge)
 		require.NoError(t, err)
 	}()
 	err = setupPublicNS(pkg.StrIdentifier(""), iface)

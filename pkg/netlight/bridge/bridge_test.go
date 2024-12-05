@@ -2,7 +2,6 @@ package bridge
 
 import (
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -89,18 +88,13 @@ func TestAttachBridgeWithMac(t *testing.T) {
 	}()
 
 	addrBefore := br.Attrs().HardwareAddr
-	t.Logf("initial bridge mac: %s", addrBefore)
 	err = AttachNicWithMac(dummy, br)
 	require.NoError(t, err)
-	time.Sleep(100 * time.Millisecond)
 
 	l, err := netlink.LinkByName("bro0")
 	require.NoError(t, err)
 	br = l.(*netlink.Bridge)
 	addrAfter := br.Attrs().HardwareAddr
-
-	t.Logf("bridge mac After: %s", addrAfter)
-	t.Logf("dummy mac: %s", dummy.Attrs().HardwareAddr)
 
 	assert.NotEqual(t, addrBefore, addrAfter)
 	assert.Equal(t, dummy.Attrs().HardwareAddr, addrAfter)
