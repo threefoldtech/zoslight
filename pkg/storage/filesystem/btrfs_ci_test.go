@@ -34,14 +34,14 @@ var (
 
 type TestDevices map[string]string
 
-func (d TestDevices) Loops(t *testing.T) Devices {
+func (d TestDevices) Loops() (Devices, error) {
 	mgr := lsblkDeviceManager{
 		executer: executerFunc(run),
 	}
 	for loopTempPath, loop := range d {
 		size, err := FilesUsage(loopTempPath)
 		if err != nil {
-			require.NoError(t, err)
+			return Devices{}, err
 		}
 		mgr.cache = append(mgr.cache, DeviceInfo{
 			Path: loop,
@@ -53,9 +53,9 @@ func (d TestDevices) Loops(t *testing.T) Devices {
 
 	devices, err := mgr.Devices(context.Background())
 	if err != nil {
-		require.NoError(t, err)
+		return Devices{}, err
 	}
-	return devices
+	return devices, nil
 }
 
 func (d TestDevices) Destroy() {
@@ -208,8 +208,8 @@ func TestBtrfsSingleCI(t *testing.T) {
 	require.NoError(t, err, "failed to initialize devices")
 
 	defer devices.Destroy()
-	loops := devices.Loops(t)
-
+	loops, err := devices.Loops()
+	require.NoError(t, err)
 	for _, dev := range loops {
 		dev.mgr = &lsblkDeviceManager{
 			executer: executerFunc(run),
@@ -229,7 +229,8 @@ func TestCLeanUpQgroupsCI(t *testing.T) {
 	require.NoError(t, err, "failed to initialize devices")
 	defer devices.Destroy()
 
-	loops := devices.Loops(t)
+	loops, err := devices.Loops()
+	require.NoError(t, err)
 	loops[0].mgr = &lsblkDeviceManager{
 		executer: executerFunc(run),
 	}
