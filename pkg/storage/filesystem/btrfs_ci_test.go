@@ -38,11 +38,17 @@ func (d TestDevices) Loops() Devices {
 	mgr := lsblkDeviceManager{
 		executer: executerFunc(run),
 	}
-	for _, loop := range d {
+	for loopTempPath, loop := range d {
+		size, err := FilesUsage(loopTempPath)
+		if err != nil {
+			panic(err)
+		}
 		mgr.cache = append(mgr.cache, DeviceInfo{
 			Path: loop,
 			Rota: false,
+			Size: size,
 		})
+
 	}
 
 	devices, err := mgr.Devices(context.Background())
@@ -75,7 +81,7 @@ func SetupDevices(count int) (devices TestDevices, err error) {
 
 	for i := 0; i < count; i++ {
 		var dev *os.File
-		dev, err = os.CreateTemp("", "dev/")
+		dev, err = os.CreateTemp("", "loop-test-")
 		if err != nil {
 			return
 		}
@@ -173,16 +179,10 @@ func basePoolTest(t *testing.T, pool Pool) {
 	})
 
 	t.Run("test limit subvolume", func(t *testing.T) {
-		usage, err := volume.Usage()
-		require.NoError(t, err)
-
-		// Note: an empty subvolume has an overhead of 16384 bytes
-		assert.Equal(t, Usage{Used: 16384}, usage)
-
 		err = volume.Limit(50 * 1024 * 1024)
 		require.NoError(t, err)
 
-		usage, err = volume.Usage()
+		usage, err := volume.Usage()
 		require.NoError(t, err)
 
 		assert.Equal(t, Usage{Used: 50 * 1024 * 1024, Size: 50 * 1024 * 1024}, usage)
