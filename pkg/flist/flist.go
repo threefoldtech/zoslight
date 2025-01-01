@@ -728,7 +728,7 @@ func (f *flistModule) downloadInNamespace(name, u string) (resp *http.Response, 
 		if err != nil {
 			return errors.Wrap(err, "failed to start tcp connection")
 		}
-		cl:= retryablehttp.NewClient()
+		cl := retryablehttp.NewClient()
 		cl.RetryMax = 5
 		cl.HTTPClient.Transport = &http.Transport{
 			DisableKeepAlives: true,

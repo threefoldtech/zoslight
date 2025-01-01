@@ -1212,7 +1212,7 @@ func isTwinVerified(twinID uint32) (verified bool, err error) {
 	request.URL.RawQuery = q.Encode()
 
 	cl := retryablehttp.NewClient()
-	cl.HTTPClient.Timeout = 10* time.Second
+	cl.HTTPClient.Timeout = 10 * time.Second
 
 	response, err := cl.StandardClient().Do(request)
 	if err != nil {
