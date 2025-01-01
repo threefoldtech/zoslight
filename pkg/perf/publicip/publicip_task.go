@@ -12,6 +12,7 @@ import (
 
 	"github.com/cenkalti/backoff/v3"
 	"github.com/containernetworking/plugins/pkg/ns"
+	"github.com/hashicorp/go-retryablehttp"
 	"github.com/rs/zerolog/log"
 	substrate "github.com/threefoldtech/tfchain/clients/tfchain-client-go"
 	"github.com/threefoldtech/zos4/pkg/environment"
@@ -266,12 +267,11 @@ func getRealPublicIP() (net.IP, error) {
 
 	defer con.Close()
 
-	cl := http.Client{
-		Transport: &http.Transport{
-			DisableKeepAlives: true,
-			DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
-				return con, nil
-			},
+	cl := retryablehttp.NewClient()
+	cl.HTTPClient.Transport = &http.Transport{
+		DisableKeepAlives: true,
+		DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+			return con, nil
 		},
 	}
 	response, err := cl.Get("https://api.ipify.org/")

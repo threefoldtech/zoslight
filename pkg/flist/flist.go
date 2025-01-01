@@ -18,6 +18,7 @@ import (
 	"time"
 
 	"github.com/containernetworking/plugins/pkg/ns"
+	"github.com/hashicorp/go-retryablehttp"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
 	"github.com/threefoldtech/zos4/pkg"
@@ -125,7 +126,7 @@ type flistModule struct {
 	commander commander
 	system    system
 
-	httpClient *http.Client
+	httpClient *retryablehttp.Client
 }
 
 func newFlister(root string, storage volumeAllocator, commander commander, system system) *flistModule {
@@ -154,6 +155,10 @@ func newFlister(root string, storage volumeAllocator, commander commander, syste
 		}
 	}
 
+	httpClient := retryablehttp.NewClient()
+	httpClient.HTTPClient.Timeout = defaultHubCallTimeout
+	httpClient.RetryMax = 5
+
 	return &flistModule{
 		root:       root,
 		flist:      filepath.Join(root, "flist"),
@@ -167,9 +172,7 @@ func newFlister(root string, storage volumeAllocator, commander commander, syste
 		commander: commander,
 		system:    system,
 
-		httpClient: &http.Client{
-			Timeout: defaultHubCallTimeout,
-		},
+		httpClient: httpClient,
 	}
 }
 
@@ -725,13 +728,12 @@ func (f *flistModule) downloadInNamespace(name, u string) (resp *http.Response, 
 		if err != nil {
 			return errors.Wrap(err, "failed to start tcp connection")
 		}
-
-		cl := http.Client{
-			Transport: &http.Transport{
-				DisableKeepAlives: true,
-				DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
-					return con, nil
-				},
+		cl:= retryablehttp.NewClient()
+		cl.RetryMax = 5
+		cl.HTTPClient.Transport = &http.Transport{
+			DisableKeepAlives: true,
+			DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+				return con, nil
 			},
 		}
 

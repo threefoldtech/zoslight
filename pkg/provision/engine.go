@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/cenkalti/backoff/v3"
+	"github.com/hashicorp/go-retryablehttp"
 	"github.com/joncrlsn/dque"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
@@ -1210,11 +1211,10 @@ func isTwinVerified(twinID uint32) (verified bool, err error) {
 	q.Set("twin_id", fmt.Sprint(twinID))
 	request.URL.RawQuery = q.Encode()
 
-	cl := &http.Client{
-		Timeout: 10 * time.Second,
-	}
+	cl := retryablehttp.NewClient()
+	cl.HTTPClient.Timeout = 10* time.Second
 
-	response, err := cl.Do(request)
+	response, err := cl.StandardClient().Do(request)
 	if err != nil {
 		return
 	}
