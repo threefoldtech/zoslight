@@ -274,6 +274,8 @@ func getRealPublicIP() (net.IP, error) {
 			return con, nil
 		},
 	}
+	cl.RetryMax = 5
+
 	response, err := cl.Get("https://api.ipify.org/")
 	if err != nil {
 		return nil, errors.Join(err, errPublicIPLookup)

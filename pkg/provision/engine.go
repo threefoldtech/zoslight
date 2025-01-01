@@ -92,6 +92,8 @@ const (
 	opPause
 	// opResume resumes a deployment
 	opResume
+	// servers default timeout
+	defaultHttpTimeout = 10 * time.Second
 )
 
 // engineJob is a persisted job instance that is
@@ -1212,7 +1214,8 @@ func isTwinVerified(twinID uint32) (verified bool, err error) {
 	request.URL.RawQuery = q.Encode()
 
 	cl := retryablehttp.NewClient()
-	cl.HTTPClient.Timeout = 10 * time.Second
+	cl.HTTPClient.Timeout = defaultHttpTimeout
+	cl.RetryMax = 5
 
 	response, err := cl.StandardClient().Do(request)
 	if err != nil {
