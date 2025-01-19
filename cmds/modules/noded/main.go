@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/ed25519"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/cenkalti/backoff"
@@ -16,6 +17,7 @@ import (
 	"github.com/threefoldtech/zos4/pkg/environment"
 	"github.com/threefoldtech/zos4/pkg/events"
 	"github.com/threefoldtech/zos4/pkg/monitord"
+	"github.com/threefoldtech/zos4/pkg/netlight/public"
 	"github.com/threefoldtech/zos4/pkg/perf"
 	"github.com/threefoldtech/zos4/pkg/perf/cpubench"
 	"github.com/threefoldtech/zos4/pkg/perf/healthcheck"
@@ -54,12 +56,16 @@ var Module cli.Command = cli.Command{
 			Name:  "net",
 			Usage: "print node network and exit",
 		},
+		&cli.StringFlag{
+			Name:  "root",
+			Usage: "`ROOT` working directory of the module",
+			Value: "/var/cache/modules/noded",
+		},
 	},
 	Action: action,
 }
 
 func registerationServer(ctx context.Context, msgBrokerCon string, env environment.Environment, info registrar.RegistrationInfo) error {
-
 	redis, err := zbus.NewRedisClient(msgBrokerCon)
 	if err != nil {
 		return errors.Wrap(err, "fail to connect to message broker server")
@@ -84,12 +90,23 @@ func action(cli *cli.Context) error {
 		msgBrokerCon string = cli.String("broker")
 		printID      bool   = cli.Bool("id")
 		printNet     bool   = cli.Bool("net")
+		root         string = cli.String("root")
 	)
+
+	if err := os.MkdirAll(root, 0755); err != nil {
+		return errors.Wrap(err, "fail to create module root")
+	}
+
 	env := environment.MustGet()
 
 	redis, err := zbus.NewRedisClient(msgBrokerCon)
 	if err != nil {
 		return errors.Wrap(err, "fail to connect to message broker server")
+	}
+
+	consumer, err := events.NewConsumer(msgBrokerCon, module)
+	if err != nil {
+		return errors.Wrap(err, "failed to to create event consumer")
 	}
 
 	if printID {
@@ -231,6 +248,16 @@ func action(cli *cli.Context) error {
 	server.Register(zbus.ObjectID{Name: "performance-monitor", Version: "0.0.1"}, perfMon)
 
 	log.Info().Uint32("node", node).Uint32("twin", twin).Msg("node registered")
+
+	public.SetPersistence(root)
+	go func() {
+		for {
+			if err := startPublicConfigWatcher(ctx, node, redis, consumer); err != nil {
+				log.Error().Err(err).Msg("setting public config failed")
+				<-time.After(10 * time.Second)
+			}
+		}
+	}()
 
 	log.Info().Uint32("twin", twin).Msg("node has been registered")
 	idStub := stubs.NewIdentityManagerStub(redis)
