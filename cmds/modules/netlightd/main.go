@@ -135,7 +135,7 @@ func action(cli *cli.Context) error {
 		return fmt.Errorf("failed to drop traffic to lan: %w", err)
 	}
 
-	mod, err := netlight.NewNetworker()
+	mod, err := netlight.NewNetworker(identity)
 	if err != nil {
 		return fmt.Errorf("failed to create Networker: %w", err)
 	}
