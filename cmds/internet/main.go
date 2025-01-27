@@ -11,17 +11,17 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/vishvananda/netlink"
 
-	"github.com/threefoldtech/zos4/pkg/app"
-	"github.com/threefoldtech/zos4/pkg/environment"
-	"github.com/threefoldtech/zos4/pkg/netlight/bootstrap"
-	"github.com/threefoldtech/zos4/pkg/netlight/bridge"
-	"github.com/threefoldtech/zos4/pkg/netlight/dhcp"
-	"github.com/threefoldtech/zos4/pkg/netlight/ifaceutil"
-	"github.com/threefoldtech/zos4/pkg/netlight/options"
-	"github.com/threefoldtech/zos4/pkg/netlight/types"
-	"github.com/threefoldtech/zos4/pkg/zinit"
+	"github.com/threefoldtech/zoslight/pkg/app"
+	"github.com/threefoldtech/zoslight/pkg/environment"
+	"github.com/threefoldtech/zoslight/pkg/netlight/bootstrap"
+	"github.com/threefoldtech/zoslight/pkg/netlight/bridge"
+	"github.com/threefoldtech/zoslight/pkg/netlight/dhcp"
+	"github.com/threefoldtech/zoslight/pkg/netlight/ifaceutil"
+	"github.com/threefoldtech/zoslight/pkg/netlight/options"
+	"github.com/threefoldtech/zoslight/pkg/netlight/types"
+	"github.com/threefoldtech/zoslight/pkg/zinit"
 
-	"github.com/threefoldtech/zos4/pkg/version"
+	"github.com/threefoldtech/zoslight/pkg/version"
 )
 
 func main() {

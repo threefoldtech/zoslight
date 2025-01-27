@@ -5,14 +5,14 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/threefoldtech/zos4/pkg/stubs"
-	"github.com/threefoldtech/zos4/pkg/utils"
+	"github.com/threefoldtech/zoslight/pkg/stubs"
+	"github.com/threefoldtech/zoslight/pkg/utils"
 	"github.com/urfave/cli/v2"
 
 	"github.com/rs/zerolog/log"
 
 	"github.com/threefoldtech/zbus"
-	"github.com/threefoldtech/zos4/pkg/flist"
+	"github.com/threefoldtech/zoslight/pkg/flist"
 )
 
 const (

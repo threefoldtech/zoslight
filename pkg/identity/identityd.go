@@ -5,12 +5,12 @@ import (
 
 	"github.com/rs/zerolog/log"
 	substrate "github.com/threefoldtech/tfchain/clients/tfchain-client-go"
-	"github.com/threefoldtech/zos4/pkg/crypto"
-	"github.com/threefoldtech/zos4/pkg/identity/store"
+	"github.com/threefoldtech/zoslight/pkg/crypto"
+	"github.com/threefoldtech/zoslight/pkg/identity/store"
 
 	"github.com/pkg/errors"
-	"github.com/threefoldtech/zos4/pkg"
-	"github.com/threefoldtech/zos4/pkg/environment"
+	"github.com/threefoldtech/zoslight/pkg"
+	"github.com/threefoldtech/zoslight/pkg/environment"
 )
 
 type identityManager struct {

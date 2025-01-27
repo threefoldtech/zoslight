@@ -8,7 +8,7 @@ import (
 	"context"
 
 	zbus "github.com/threefoldtech/zbus"
-	gridtypes "github.com/threefoldtech/zos4/pkg/gridtypes"
+	gridtypes "github.com/threefoldtech/zoslight/pkg/gridtypes"
 )
 
 type ProvisionStub struct {

@@ -9,8 +9,8 @@ import (
 
 	"github.com/blang/semver"
 	"github.com/rs/zerolog/log"
-	"github.com/threefoldtech/zos4/pkg/environment"
-	"github.com/threefoldtech/zos4/pkg/upgrade/hub"
+	"github.com/threefoldtech/zoslight/pkg/environment"
+	"github.com/threefoldtech/zoslight/pkg/upgrade/hub"
 )
 
 const (

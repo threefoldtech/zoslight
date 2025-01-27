@@ -4,17 +4,19 @@ A Zbus service to start, stop and inspect containers. The service
 provides the interface defined [here](../../specs/container/readme.md#module-interface)
 
 ## Dependency
+
 The module depends on the [flister module](../flist) to mount
 the container rootfs
 
 ## Example usage
+
 ```go
 package main
 
 import (
 	"github.com/threefoldtech/zbus"
-	"github.com/threefoldtech/zos4/pkg"
-	"github.com/threefoldtech/zos4/pkg/stubs"
+	"github.com/threefoldtech/zoslight/pkg"
+	"github.com/threefoldtech/zoslight/pkg/stubs"
 )
 
 func main() {

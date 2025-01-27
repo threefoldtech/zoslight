@@ -11,7 +11,7 @@ import (
 	types "github.com/centrifuge/go-substrate-rpc-client/v4/types"
 	tfchainclientgo "github.com/threefoldtech/tfchain/clients/tfchain-client-go"
 	zbus "github.com/threefoldtech/zbus"
-	pkg "github.com/threefoldtech/zos4/pkg"
+	pkg "github.com/threefoldtech/zoslight/pkg"
 )
 
 type SubstrateGatewayStub struct {

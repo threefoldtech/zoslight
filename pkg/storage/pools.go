@@ -3,8 +3,8 @@ package storage
 import (
 	"slices"
 
-	"github.com/threefoldtech/zos4/pkg/kernel"
-	"github.com/threefoldtech/zos4/pkg/storage/filesystem"
+	"github.com/threefoldtech/zoslight/pkg/kernel"
+	"github.com/threefoldtech/zoslight/pkg/storage/filesystem"
 )
 
 // utils for pool ordering and presence

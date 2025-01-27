@@ -9,9 +9,9 @@ import (
 
 	"github.com/cenkalti/backoff"
 	"github.com/rs/zerolog/log"
-	"github.com/threefoldtech/zos4/pkg/app"
-	"github.com/threefoldtech/zos4/pkg/perf"
-	"github.com/threefoldtech/zos4/pkg/stubs"
+	"github.com/threefoldtech/zoslight/pkg/app"
+	"github.com/threefoldtech/zoslight/pkg/perf"
+	"github.com/threefoldtech/zoslight/pkg/stubs"
 )
 
 const (

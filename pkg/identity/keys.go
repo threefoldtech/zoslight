@@ -2,7 +2,7 @@ package identity
 
 import (
 	"github.com/jbenet/go-base58"
-	"github.com/threefoldtech/zos4/pkg/versioned"
+	"github.com/threefoldtech/zoslight/pkg/versioned"
 
 	"golang.org/x/crypto/ed25519"
 )

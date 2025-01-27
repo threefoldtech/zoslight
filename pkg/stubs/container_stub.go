@@ -9,7 +9,7 @@ import (
 	"time"
 
 	zbus "github.com/threefoldtech/zbus"
-	pkg "github.com/threefoldtech/zos4/pkg"
+	pkg "github.com/threefoldtech/zoslight/pkg"
 )
 
 type ContainerModuleStub struct {

@@ -8,9 +8,9 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
-	"github.com/threefoldtech/zos4/pkg/capacity"
-	"github.com/threefoldtech/zos4/pkg/gridtypes/zos"
-	"github.com/threefoldtech/zos4/pkg/kernel"
+	"github.com/threefoldtech/zoslight/pkg/capacity"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes/zos"
+	"github.com/threefoldtech/zoslight/pkg/kernel"
 )
 
 const (

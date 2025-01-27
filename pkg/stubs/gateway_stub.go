@@ -8,8 +8,8 @@ import (
 	"context"
 
 	zbus "github.com/threefoldtech/zbus"
-	pkg "github.com/threefoldtech/zos4/pkg"
-	zos "github.com/threefoldtech/zos4/pkg/gridtypes/zos"
+	pkg "github.com/threefoldtech/zoslight/pkg"
+	zos "github.com/threefoldtech/zoslight/pkg/gridtypes/zos"
 )
 
 type GatewayStub struct {

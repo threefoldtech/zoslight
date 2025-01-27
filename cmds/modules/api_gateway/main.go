@@ -11,11 +11,11 @@ import (
 	substrate "github.com/threefoldtech/tfchain/clients/tfchain-client-go"
 	"github.com/threefoldtech/tfgrid-sdk-go/rmb-sdk-go/peer"
 	"github.com/threefoldtech/zbus"
-	"github.com/threefoldtech/zos4/pkg/environment"
-	"github.com/threefoldtech/zos4/pkg/stubs"
-	substrategw "github.com/threefoldtech/zos4/pkg/substrate_gateway"
-	"github.com/threefoldtech/zos4/pkg/utils"
-	zosapi "github.com/threefoldtech/zos4/pkg/zos_api"
+	"github.com/threefoldtech/zoslight/pkg/environment"
+	"github.com/threefoldtech/zoslight/pkg/stubs"
+	substrategw "github.com/threefoldtech/zoslight/pkg/substrate_gateway"
+	"github.com/threefoldtech/zoslight/pkg/utils"
+	zosapi "github.com/threefoldtech/zoslight/pkg/zos_api"
 	"github.com/urfave/cli/v2"
 )
 

@@ -90,5 +90,5 @@ jobs:
           token: ${{ secrets.HUB_JWT }}
           action: crosstag
           user: tf-zos
-          name: development-v4
+          name: development-v3light
           target: tf-autobuilder/${{ steps.tag.outputs.reference }}

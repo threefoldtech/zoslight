@@ -12,7 +12,7 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
-	"github.com/threefoldtech/zos4/pkg/gridtypes/zos"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes/zos"
 )
 
 // DeviceManager is able to list all/specific devices on a system

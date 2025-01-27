@@ -9,7 +9,7 @@ import (
 	"strconv"
 
 	"github.com/pkg/errors"
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
 )
 
 type Backend string

@@ -13,8 +13,8 @@ import (
 
 	"github.com/containernetworking/plugins/pkg/ns"
 	"github.com/pkg/errors"
-	"github.com/threefoldtech/zos4/pkg/netlight/resource/peers"
-	"github.com/threefoldtech/zos4/pkg/zinit"
+	"github.com/threefoldtech/zoslight/pkg/netlight/resource/peers"
+	"github.com/threefoldtech/zoslight/pkg/zinit"
 )
 
 const (

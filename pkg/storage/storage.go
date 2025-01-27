@@ -15,13 +15,13 @@ import (
 	"github.com/pkg/errors"
 	log "github.com/rs/zerolog/log"
 	"github.com/shirou/gopsutil/disk"
-	"github.com/threefoldtech/zos4/pkg"
-	"github.com/threefoldtech/zos4/pkg/app"
-	"github.com/threefoldtech/zos4/pkg/cache"
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
-	"github.com/threefoldtech/zos4/pkg/gridtypes/zos"
-	"github.com/threefoldtech/zos4/pkg/kernel"
-	"github.com/threefoldtech/zos4/pkg/storage/filesystem"
+	"github.com/threefoldtech/zoslight/pkg"
+	"github.com/threefoldtech/zoslight/pkg/app"
+	"github.com/threefoldtech/zoslight/pkg/cache"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes/zos"
+	"github.com/threefoldtech/zoslight/pkg/kernel"
+	"github.com/threefoldtech/zoslight/pkg/storage/filesystem"
 )
 
 const (
