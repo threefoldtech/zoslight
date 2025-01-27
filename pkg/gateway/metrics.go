@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/containernetworking/plugins/pkg/ns"
+	"github.com/hashicorp/go-retryablehttp"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
 	"github.com/threefoldtech/zos4/pkg"
@@ -139,12 +140,11 @@ func metrics(rawUrl string) (map[string]*metric, error) {
 
 	defer con.Close()
 
-	cl := http.Client{
-		Transport: &http.Transport{
-			DisableKeepAlives: true,
-			DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
-				return con, nil
-			},
+	cl := retryablehttp.NewClient()
+	cl.HTTPClient.Transport = &http.Transport{
+		DisableKeepAlives: true,
+		DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+			return con, nil
 		},
 	}
 
