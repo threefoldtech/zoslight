@@ -9,9 +9,9 @@ import (
 	"net"
 
 	zbus "github.com/threefoldtech/zbus"
-	pkg "github.com/threefoldtech/zos4/pkg"
-	gridtypes "github.com/threefoldtech/zos4/pkg/gridtypes"
-	zos "github.com/threefoldtech/zos4/pkg/gridtypes/zos"
+	pkg "github.com/threefoldtech/zoslight/pkg"
+	gridtypes "github.com/threefoldtech/zoslight/pkg/gridtypes"
+	zos "github.com/threefoldtech/zoslight/pkg/gridtypes/zos"
 )
 
 type NetworkerStub struct {

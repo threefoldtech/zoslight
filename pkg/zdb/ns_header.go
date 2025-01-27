@@ -5,7 +5,7 @@ import (
 	"io"
 
 	"github.com/pkg/errors"
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
 )
 
 type internalHeaderV2 struct {

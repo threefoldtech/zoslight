@@ -5,7 +5,7 @@ import (
 	"io"
 	"regexp"
 
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
 )
 
 var gwNameRegex = regexp.MustCompile(`^[a-zA-Z0-9-_]+$`)

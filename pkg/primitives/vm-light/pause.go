@@ -3,9 +3,9 @@ package vmlight
 import (
 	"context"
 
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
-	"github.com/threefoldtech/zos4/pkg/provision"
-	"github.com/threefoldtech/zos4/pkg/stubs"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/provision"
+	"github.com/threefoldtech/zoslight/pkg/stubs"
 )
 
 func (m *Manager) Pause(ctx context.Context, wl *gridtypes.WorkloadWithID) error {

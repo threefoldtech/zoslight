@@ -8,9 +8,9 @@ import (
 	"github.com/centrifuge/go-substrate-rpc-client/v4/types"
 	"github.com/rs/zerolog/log"
 	substrate "github.com/threefoldtech/tfchain/clients/tfchain-client-go"
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
-	"github.com/threefoldtech/zos4/pkg/provision"
-	"github.com/threefoldtech/zos4/pkg/stubs"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/provision"
+	"github.com/threefoldtech/zoslight/pkg/stubs"
 )
 
 type DeploymentID struct {

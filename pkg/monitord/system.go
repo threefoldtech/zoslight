@@ -9,9 +9,9 @@ import (
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
 	"github.com/shirou/gopsutil/net"
-	"github.com/threefoldtech/zos4/pkg"
-	"github.com/threefoldtech/zos4/pkg/gridtypes/zos"
-	"github.com/threefoldtech/zos4/pkg/kernel"
+	"github.com/threefoldtech/zoslight/pkg"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes/zos"
+	"github.com/threefoldtech/zoslight/pkg/kernel"
 )
 
 var _ pkg.SystemMonitor = (*systemMonitor)(nil)

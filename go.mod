@@ -1,4 +1,4 @@
-module github.com/threefoldtech/zos4
+module github.com/threefoldtech/zoslight
 
 go 1.21
 

@@ -5,11 +5,11 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/threefoldtech/zos4/pkg"
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
-	"github.com/threefoldtech/zos4/pkg/netlight/bridge"
-	"github.com/threefoldtech/zos4/pkg/netlight/namespace"
-	"github.com/threefoldtech/zos4/pkg/netlight/types"
+	"github.com/threefoldtech/zoslight/pkg"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/netlight/bridge"
+	"github.com/threefoldtech/zoslight/pkg/netlight/namespace"
+	"github.com/threefoldtech/zoslight/pkg/netlight/types"
 )
 
 func TestCreatePublicNS(t *testing.T) {

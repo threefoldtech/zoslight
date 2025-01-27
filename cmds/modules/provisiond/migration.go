@@ -8,10 +8,10 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
-	"github.com/threefoldtech/zos4/pkg/gridtypes/zos"
-	"github.com/threefoldtech/zos4/pkg/provision/storage"
-	fsStorage "github.com/threefoldtech/zos4/pkg/provision/storage.fs"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes/zos"
+	"github.com/threefoldtech/zoslight/pkg/provision/storage"
+	fsStorage "github.com/threefoldtech/zoslight/pkg/provision/storage.fs"
 )
 
 func storageMigration(db *storage.BoltStorage, fs *fsStorage.Fs) error {

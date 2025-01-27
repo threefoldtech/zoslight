@@ -10,7 +10,7 @@ import (
 	"github.com/containerd/typeurl"
 	"github.com/patrickmn/go-cache"
 	"github.com/rs/zerolog/log"
-	"github.com/threefoldtech/zos4/pkg/stubs"
+	"github.com/threefoldtech/zoslight/pkg/stubs"
 )
 
 func (c *Module) handlerEventTaskExit(ctx context.Context, ns string, event *events.TaskExit) {

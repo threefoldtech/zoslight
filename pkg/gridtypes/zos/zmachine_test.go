@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
 )
 
 func TestZMachineSRU(t *testing.T) {

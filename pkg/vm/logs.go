@@ -6,8 +6,8 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
-	"github.com/threefoldtech/zos4/pkg"
-	"github.com/threefoldtech/zos4/pkg/zinit"
+	"github.com/threefoldtech/zoslight/pkg"
+	"github.com/threefoldtech/zoslight/pkg/zinit"
 )
 
 const (

@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"github.com/threefoldtech/zos4/pkg/gridtypes/zos"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes/zos"
 )
 
 type TestDeviceManager struct {

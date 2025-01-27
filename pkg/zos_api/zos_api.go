@@ -5,10 +5,10 @@ import (
 
 	substrate "github.com/threefoldtech/tfchain/clients/tfchain-client-go"
 	"github.com/threefoldtech/zbus"
-	"github.com/threefoldtech/zos4/pkg/capacity"
-	"github.com/threefoldtech/zos4/pkg/diagnostics"
-	"github.com/threefoldtech/zos4/pkg/environment"
-	"github.com/threefoldtech/zos4/pkg/stubs"
+	"github.com/threefoldtech/zoslight/pkg/capacity"
+	"github.com/threefoldtech/zoslight/pkg/diagnostics"
+	"github.com/threefoldtech/zoslight/pkg/environment"
+	"github.com/threefoldtech/zoslight/pkg/stubs"
 )
 
 type ZosAPI struct {

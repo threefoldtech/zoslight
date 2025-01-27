@@ -11,9 +11,9 @@ import (
 	"github.com/patrickmn/go-cache"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
-	"github.com/threefoldtech/zos4/pkg/rotate"
-	"github.com/threefoldtech/zos4/pkg/stubs"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/rotate"
+	"github.com/threefoldtech/zoslight/pkg/stubs"
 )
 
 const (

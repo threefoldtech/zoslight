@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/threefoldtech/zos4/pkg"
+	"github.com/threefoldtech/zoslight/pkg"
 )
 
 // TestVolatileDir tests the volatileDir function against multiple scenarios.

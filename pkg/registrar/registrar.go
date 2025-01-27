@@ -10,9 +10,9 @@ import (
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
 	"github.com/threefoldtech/zbus"
-	"github.com/threefoldtech/zos4/pkg/app"
-	"github.com/threefoldtech/zos4/pkg/environment"
-	"github.com/threefoldtech/zos4/pkg/stubs"
+	"github.com/threefoldtech/zoslight/pkg/app"
+	"github.com/threefoldtech/zoslight/pkg/environment"
+	"github.com/threefoldtech/zoslight/pkg/stubs"
 )
 
 // should any of this be moved to pkg?

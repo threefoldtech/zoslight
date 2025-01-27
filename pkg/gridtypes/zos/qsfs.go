@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
 )
 
 type EncryptionAlgorithm string

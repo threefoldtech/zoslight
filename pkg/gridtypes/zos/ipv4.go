@@ -5,7 +5,7 @@ import (
 	"io"
 	"net"
 
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
 )
 
 // PublicIP4 structure

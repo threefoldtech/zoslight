@@ -9,7 +9,7 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
-	"github.com/threefoldtech/zos4/pkg"
+	"github.com/threefoldtech/zoslight/pkg"
 )
 
 // Metrics gets running machines network metrics

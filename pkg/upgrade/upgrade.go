@@ -21,11 +21,11 @@ import (
 	"github.com/threefoldtech/0-fs/rofs"
 	"github.com/threefoldtech/0-fs/storage"
 	"github.com/threefoldtech/zbus"
-	"github.com/threefoldtech/zos4/pkg/app"
-	"github.com/threefoldtech/zos4/pkg/environment"
-	"github.com/threefoldtech/zos4/pkg/stubs"
-	"github.com/threefoldtech/zos4/pkg/upgrade/hub"
-	"github.com/threefoldtech/zos4/pkg/zinit"
+	"github.com/threefoldtech/zoslight/pkg/app"
+	"github.com/threefoldtech/zoslight/pkg/environment"
+	"github.com/threefoldtech/zoslight/pkg/stubs"
+	"github.com/threefoldtech/zoslight/pkg/upgrade/hub"
+	"github.com/threefoldtech/zoslight/pkg/zinit"
 
 	"github.com/rs/zerolog/log"
 )

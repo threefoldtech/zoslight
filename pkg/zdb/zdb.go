@@ -4,8 +4,8 @@ package zdb
 import (
 	"github.com/gomodule/redigo/redis"
 	"github.com/pkg/errors"
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
-	"github.com/threefoldtech/zos4/pkg/utils"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/utils"
 )
 
 type Namespace struct {

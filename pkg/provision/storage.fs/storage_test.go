@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/threefoldtech/zos4/pkg/gridtypes"
-	"github.com/threefoldtech/zos4/pkg/provision"
+	"github.com/threefoldtech/zoslight/pkg/gridtypes"
+	"github.com/threefoldtech/zoslight/pkg/provision"
 )
 
 var TestType = gridtypes.WorkloadType("test")

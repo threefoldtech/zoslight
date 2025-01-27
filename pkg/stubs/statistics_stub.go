@@ -8,8 +8,8 @@ import (
 	"context"
 
 	zbus "github.com/threefoldtech/zbus"
-	pkg "github.com/threefoldtech/zos4/pkg"
-	gridtypes "github.com/threefoldtech/zos4/pkg/gridtypes"
+	pkg "github.com/threefoldtech/zoslight/pkg"
+	gridtypes "github.com/threefoldtech/zoslight/pkg/gridtypes"
 )
 
 type StatisticsStub struct {
