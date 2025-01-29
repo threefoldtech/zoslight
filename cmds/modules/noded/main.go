@@ -17,7 +17,6 @@ import (
 	"github.com/threefoldtech/zos4/pkg/environment"
 	"github.com/threefoldtech/zos4/pkg/events"
 	"github.com/threefoldtech/zos4/pkg/monitord"
-	"github.com/threefoldtech/zos4/pkg/netlight/public"
 	"github.com/threefoldtech/zos4/pkg/perf"
 	"github.com/threefoldtech/zos4/pkg/perf/cpubench"
 	"github.com/threefoldtech/zos4/pkg/perf/healthcheck"
@@ -233,7 +232,7 @@ func action(cli *cli.Context) error {
 	}
 	go events.Start(ctx)
 
-	system, err := monitord.NewSystemMonitor(node, 2*time.Second)
+	system, err := monitord.NewSystemMonitor(node, 2*time.Second, redis)
 	if err != nil {
 		log.Fatal().Err(err).Msg("failed to initialize system monitor")
 	}
@@ -249,7 +248,6 @@ func action(cli *cli.Context) error {
 
 	log.Info().Uint32("node", node).Uint32("twin", twin).Msg("node registered")
 
-	public.SetPersistence(root)
 	go func() {
 		for {
 			if err := startPublicConfigWatcher(ctx, node, redis, consumer); err != nil {
