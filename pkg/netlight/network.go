@@ -24,7 +24,9 @@ import (
 	"github.com/threefoldtech/zos4/pkg/netlight/ipam"
 	"github.com/threefoldtech/zos4/pkg/netlight/namespace"
 	"github.com/threefoldtech/zos4/pkg/netlight/options"
+	"github.com/threefoldtech/zos4/pkg/netlight/public"
 	"github.com/threefoldtech/zos4/pkg/netlight/resource"
+	"github.com/threefoldtech/zos4/pkg/stubs"
 	"github.com/threefoldtech/zos4/pkg/versioned"
 	"github.com/vishvananda/netlink"
 )
@@ -38,23 +40,22 @@ const (
 	networkDir    = "networks"
 )
 
-var (
-	NDMZGwIP = &net.IPNet{
-		IP:   net.ParseIP("100.127.0.1"),
-		Mask: net.CIDRMask(16, 32),
-	}
-)
+var NDMZGwIP = &net.IPNet{
+	IP:   net.ParseIP("100.127.0.1"),
+	Mask: net.CIDRMask(16, 32),
+}
 
 var NetworkSchemaLatestVersion = semver.MustParse("0.1.0")
 
 type networker struct {
+	identity   *stubs.IdentityManagerStub
 	ipamLease  string
 	networkDir string
 }
 
 var _ pkg.NetworkerLight = (*networker)(nil)
 
-func NewNetworker() (pkg.NetworkerLight, error) {
+func NewNetworker(identity *stubs.IdentityManagerStub) (pkg.NetworkerLight, error) {
 	vd, err := cache.VolatileDir("networkd", 50*mib)
 	if err != nil && !os.IsExist(err) {
 		return nil, fmt.Errorf("failed to create networkd cache directory: %w", err)
@@ -64,6 +65,7 @@ func NewNetworker() (pkg.NetworkerLight, error) {
 	runtimeDir := filepath.Join(vd, networkDir)
 
 	return &networker{
+		identity:   identity,
 		ipamLease:  ipamLease,
 		networkDir: runtimeDir,
 	}, nil
@@ -89,7 +91,6 @@ func (n *networker) Delete(name string) error {
 	}
 
 	return resource.Delete(name)
-
 }
 
 func (n *networker) AttachPrivate(name, id string, vmIp net.IP) (device pkg.TapDevice, err error) {
@@ -388,6 +389,38 @@ func (n *networker) Interfaces(iface string, netns string) (pkg.Interfaces, erro
 	}
 
 	return pkg.Interfaces{Interfaces: interfaces}, nil
+}
+
+func (n *networker) UnSetPublicConfig() error {
+	return public.DeletePublicConfig()
+}
+
+// Set node public namespace config
+func (n *networker) SetPublicConfig(cfg pkg.PublicConfig) error {
+	if cfg.Equal(pkg.PublicConfig{}) {
+		return fmt.Errorf("public config cannot be unset, only modified")
+	}
+
+	current, err := public.LoadPublicConfig()
+	if err != nil && err != public.ErrNoPublicConfig {
+		return errors.Wrapf(err, "failed to load current public configuration")
+	}
+
+	if current != nil && current.Equal(cfg) {
+		// nothing to do
+		return nil
+	}
+
+	if err := public.SavePublicConfig(cfg); err != nil {
+		return errors.Wrap(err, "failed to store public config")
+	}
+
+	return nil
+}
+
+func (n *networker) LoadPublicConfig() (pkg.PublicConfig, error) {
+	cfg, err := public.LoadPublicConfig()
+	return *cfg, err
 }
 
 func CreateNDMZBridge() (*netlink.Bridge, error) {
