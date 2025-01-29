@@ -24,7 +24,9 @@ import (
 	"github.com/threefoldtech/zos4/pkg/netlight/ipam"
 	"github.com/threefoldtech/zos4/pkg/netlight/namespace"
 	"github.com/threefoldtech/zos4/pkg/netlight/options"
+	"github.com/threefoldtech/zos4/pkg/netlight/public"
 	"github.com/threefoldtech/zos4/pkg/netlight/resource"
+	"github.com/threefoldtech/zos4/pkg/stubs"
 	"github.com/threefoldtech/zos4/pkg/versioned"
 	"github.com/vishvananda/netlink"
 )
@@ -38,12 +40,10 @@ const (
 	networkDir    = "networks"
 )
 
-var (
-	NDMZGwIP = &net.IPNet{
-		IP:   net.ParseIP("100.127.0.1"),
-		Mask: net.CIDRMask(16, 32),
-	}
-)
+var NDMZGwIP = &net.IPNet{
+	IP:   net.ParseIP("100.127.0.1"),
+	Mask: net.CIDRMask(16, 32),
+}
 
 var NetworkSchemaLatestVersion = semver.MustParse("0.1.0")
 
@@ -391,6 +391,10 @@ func (n *networker) Interfaces(iface string, netns string) (pkg.Interfaces, erro
 	return pkg.Interfaces{Interfaces: interfaces}, nil
 }
 
+func (n *networker) UnSetPublicConfig() error {
+	return public.DeletePublicConfig()
+}
+
 // Set node public namespace config
 func (n *networker) SetPublicConfig(cfg pkg.PublicConfig) error {
 	if cfg.Equal(pkg.PublicConfig{}) {
@@ -412,6 +416,11 @@ func (n *networker) SetPublicConfig(cfg pkg.PublicConfig) error {
 	}
 
 	return nil
+}
+
+func (n *networker) LoadPublicConfig() (pkg.PublicConfig, error) {
+	cfg, err := public.LoadPublicConfig()
+	return *cfg, err
 }
 
 func CreateNDMZBridge() (*netlink.Bridge, error) {

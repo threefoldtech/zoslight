@@ -14,6 +14,7 @@ import (
 	"github.com/threefoldtech/zos4/pkg/netlight/bridge"
 	"github.com/threefoldtech/zos4/pkg/netlight/ifaceutil"
 	"github.com/threefoldtech/zos4/pkg/netlight/nft"
+	"github.com/threefoldtech/zos4/pkg/netlight/public"
 	"github.com/threefoldtech/zos4/pkg/netlight/resource"
 	"github.com/urfave/cli/v2"
 
@@ -72,6 +73,8 @@ func action(cli *cli.Context) error {
 	if err := os.MkdirAll(root, 0755); err != nil {
 		return errors.Wrap(err, "fail to create module root")
 	}
+
+	public.SetPersistence(root)
 
 	waitMyceliumBin()
 

@@ -63,10 +63,10 @@ reapply:
 
 func setPublicConfig(ctx context.Context, cl zbus.Client, cfg *substrate.PublicConfig) error {
 	log.Info().Msg("setting node public config")
-	netMgr := stubs.NewNetworkerStub(cl)
+	netMgr := stubs.NewNetworkerLightStub(cl)
 
 	if cfg == nil {
-		return netMgr.UnsetPublicConfig(ctx)
+		return netMgr.UnSetPublicConfig(ctx)
 	}
 
 	pub, err := pkg.PublicConfigFrom(*cfg)
