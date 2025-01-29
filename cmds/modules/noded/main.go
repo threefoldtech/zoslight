@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/ed25519"
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/cenkalti/backoff"
@@ -55,11 +54,6 @@ var Module cli.Command = cli.Command{
 			Name:  "net",
 			Usage: "print node network and exit",
 		},
-		&cli.StringFlag{
-			Name:  "root",
-			Usage: "`ROOT` working directory of the module",
-			Value: "/var/cache/modules/noded",
-		},
 	},
 	Action: action,
 }
@@ -89,12 +83,7 @@ func action(cli *cli.Context) error {
 		msgBrokerCon string = cli.String("broker")
 		printID      bool   = cli.Bool("id")
 		printNet     bool   = cli.Bool("net")
-		root         string = cli.String("root")
 	)
-
-	if err := os.MkdirAll(root, 0755); err != nil {
-		return errors.Wrap(err, "fail to create module root")
-	}
 
 	env := environment.MustGet()
 
