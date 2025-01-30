@@ -420,7 +420,13 @@ func (n *networker) SetPublicConfig(cfg pkg.PublicConfig) error {
 
 func (n *networker) LoadPublicConfig() (pkg.PublicConfig, error) {
 	cfg, err := public.LoadPublicConfig()
-	return *cfg, err
+	if err != nil {
+		return pkg.PublicConfig{}, fmt.Errorf("failed to load public config: %w", err)
+	}
+	if cfg == nil {
+		return pkg.PublicConfig{}, fmt.Errorf("public config not found")
+	}
+	return *cfg, nil
 }
 
 func CreateNDMZBridge() (*netlink.Bridge, error) {
