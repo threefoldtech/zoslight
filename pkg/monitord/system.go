@@ -219,7 +219,8 @@ func (n *systemMonitor) GetNodeFeatures() []pkg.NodeFeature {
 	config, err := netStub.LoadPublicConfig(context.Background())
 
 	if config.Domain != "" && err == nil {
-		feat = append(feat, "gateway")
+		feat = append(feat, "gateway-name-proxy")
+		feat = append(feat, "gateway-fqdn-proxy")
 	}
 
 	return feat
