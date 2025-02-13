@@ -345,7 +345,7 @@ func (g *gatewayModule) validateNameContracts() error {
 	netStub := stubs.NewNetworkerLightStub(g.cl)
 	config, err := netStub.LoadPublicConfig(context.Background())
 	baseDomain := config.Domain
-	if baseDomain == "" || err == nil {
+	if baseDomain == "" || err != nil {
 		// domain doesn't exist so no name workloads exist
 		return nil
 	}
