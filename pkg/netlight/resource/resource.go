@@ -289,8 +289,13 @@ func (r *Resource) AttachPrivate(id string, vmIp net.IP) (device pkg.TapDevice, 
 		}
 	}
 
+	_, netAddr, err := net.ParseCIDR(ip.String())
+	if err != nil {
+		return pkg.TapDevice{}, err
+	}
 	routes := []pkg.Route{
 		{
+			Net:     *netAddr,
 			Gateway: gw.IP,
 		},
 		{
