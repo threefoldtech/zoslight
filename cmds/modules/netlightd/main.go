@@ -134,9 +134,12 @@ func action(cli *cli.Context) error {
 		return fmt.Errorf("failed to setup mycelium on host: %w", err)
 	}
 
-	if err := nft.DropTrafficToLAN(); err != nil {
-		return fmt.Errorf("failed to drop traffic to lan: %w", err)
-	}
+	// NOTE: DISABLED for now until deciding allowed ports
+	//
+	// for now consider 22, 53, myc, ygg
+	// if err := nft.DropTrafficToLAN(); err != nil {
+	// 	return fmt.Errorf("failed to drop traffic to lan: %w", err)
+	// }
 
 	mod, err := netlight.NewNetworker()
 	if err != nil {
