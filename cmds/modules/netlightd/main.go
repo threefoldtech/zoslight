@@ -10,10 +10,10 @@ import (
 
 	"github.com/oasisprotocol/curve25519-voi/primitives/x25519"
 	"github.com/pkg/errors"
+	"github.com/threefoldtech/zosbase/pkg/netbase/nft"
 	"github.com/threefoldtech/zosbase/pkg/netlight"
 	"github.com/threefoldtech/zosbase/pkg/netlight/bridge"
 	"github.com/threefoldtech/zosbase/pkg/netlight/ifaceutil"
-	"github.com/threefoldtech/zosbase/pkg/netlight/nft"
 	"github.com/threefoldtech/zosbase/pkg/netlight/public"
 	"github.com/threefoldtech/zosbase/pkg/netlight/resource"
 	"github.com/urfave/cli/v2"
@@ -33,9 +33,6 @@ const (
 
 //go:embed nft/rules.nft
 var nftRules embed.FS
-
-//go:embed nft/lansecurity.tmpl
-var securityRules string
 
 // Module is entry point for module
 var Module cli.Command = cli.Command{
@@ -115,7 +112,7 @@ func action(cli *cli.Context) error {
 	}
 	rules.Close()
 
-	if err := nft.DropTrafficToLAN(securityRules); err != nil {
+	if err := nft.DropTrafficToLAN(""); err != nil {
 		return fmt.Errorf("failed to drop traffic to lan: %w", err)
 	}
 
