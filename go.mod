@@ -40,7 +40,7 @@ require (
 	github.com/threefoldtech/tfchain/clients/tfchain-client-go v0.0.0-20241127100051-77e684bcb1b2
 	github.com/threefoldtech/tfgrid-sdk-go/rmb-sdk-go v0.16.1-0.20241229121208-76ac3fea5e67
 	github.com/threefoldtech/zbus v1.0.1
-	github.com/threefoldtech/zosbase v0.1.8
+	github.com/threefoldtech/zosbase v0.1.11-0.20250720083159-c9464e0897e0
 	github.com/urfave/cli/v2 v2.17.2-0.20221006022127-8f469abc00aa
 	github.com/vishvananda/netlink v1.1.1-0.20201029203352-d40f9887b852
 	github.com/vishvananda/netns v0.0.0-20210104183010-2eb08e3e575f // indirect
@@ -112,6 +112,10 @@ require (
 	github.com/philhofer/fwd v1.1.1 // indirect
 	github.com/pierrec/lz4 v2.3.0+incompatible // indirect
 	github.com/pierrec/xxHash v0.1.5 // indirect
+	github.com/pion/dtls/v2 v2.2.7 // indirect
+	github.com/pion/logging v0.2.2 // indirect
+	github.com/pion/stun v0.6.1 // indirect
+	github.com/pion/transport/v2 v2.2.1 // indirect
 	github.com/pkg/xattr v0.4.1 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
@@ -136,6 +140,7 @@ require (
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
+	go.uber.org/mock v0.5.2 // indirect
 	golang.org/x/net v0.35.0 // indirect
 	golang.org/x/sync v0.11.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
