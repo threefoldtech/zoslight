@@ -39,7 +39,6 @@ jobs:
           user: tf-autobuilder
           root: archive
           threefold: ${{ secrets.HUB_AUTOMATION_TOKEN }}
-          baseurl: "https://hub.grid.tf"
           name: ${{ steps.setname.outputs.build }}
       - name: Symlink flist (development)
         if: success()
@@ -48,7 +47,6 @@ jobs:
           action: symlink
           user: tf-autobuilder
           threefold: ${{ secrets.HUB_AUTOMATION_TOKEN }}
-          baseurl: "https://hub.grid.tf"
           name: ${{ steps.setname.outputs.build }}
           target: bootstrap-v4:development.flist
       - name: Symlink flist (release)
@@ -58,6 +56,5 @@ jobs:
           action: symlink
           user: tf-autobuilder
           threefold: ${{ secrets.HUB_AUTOMATION_TOKEN }}
-          baseurl: "https://hub.grid.tf"
           name: ${{ steps.setname.outputs.build }}
           target: bootstrap-v4:latest.flist
