@@ -40,7 +40,7 @@ require (
 	github.com/threefoldtech/tfchain/clients/tfchain-client-go v0.0.0-20250703093252-e7500b106618
 	github.com/threefoldtech/tfgrid-sdk-go/rmb-sdk-go v0.16.9-0.20250820184355-b0364f34a442
 	github.com/threefoldtech/zbus v1.0.1
-	github.com/threefoldtech/zosbase v0.1.8
+	github.com/threefoldtech/zosbase v0.1.9
 	github.com/urfave/cli/v2 v2.17.2-0.20221006022127-8f469abc00aa
 	github.com/vishvananda/netlink v1.1.1-0.20201029203352-d40f9887b852
 	github.com/vishvananda/netns v0.0.0-20210104183010-2eb08e3e575f // indirect
