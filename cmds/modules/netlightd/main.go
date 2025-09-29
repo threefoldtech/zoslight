@@ -16,6 +16,7 @@ import (
 	"github.com/threefoldtech/zosbase/pkg/netlight/ifaceutil"
 	"github.com/threefoldtech/zosbase/pkg/netlight/public"
 	"github.com/threefoldtech/zosbase/pkg/netlight/resource"
+	"github.com/threefoldtech/zosbase/pkg/network" // import network just for cleanup orphaned namespaces
 	"github.com/urfave/cli/v2"
 
 	"github.com/cenkalti/backoff/v3"
@@ -77,6 +78,8 @@ func action(cli *cli.Context) error {
 	public.SetPersistence(root)
 
 	waitMyceliumBin()
+
+	network.CleanupOrphanedNamespaces()
 
 	if err := bootstrap.DefaultBridgeValid(); err != nil {
 		return errors.Wrap(err, "invalid setup")
