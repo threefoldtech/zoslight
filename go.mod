@@ -37,10 +37,10 @@ require (
 	github.com/shirou/gopsutil v3.21.11+incompatible // indirect
 	github.com/stretchr/testify v1.11.1 // indirect
 	github.com/threefoldtech/0-fs v1.3.1-0.20240424140157-b488dfedcc56 // indirect
-	github.com/threefoldtech/tfchain/clients/tfchain-client-go v0.0.0-20250901133903-8d32a808fb79
-	github.com/threefoldtech/tfgrid-sdk-go/rmb-sdk-go v0.17.0
+	github.com/threefoldtech/tfchain/clients/tfchain-client-go v0.0.0-20250929084418-b950278ead30
+	github.com/threefoldtech/tfgrid-sdk-go/rmb-sdk-go v0.17.1-0.20251027120326-ea7853e05b62
 	github.com/threefoldtech/zbus v1.0.1
-	github.com/threefoldtech/zosbase v0.1.11-0.20250930135421-0bd90b91cc78
+	github.com/threefoldtech/zosbase v1.0.0
 	github.com/urfave/cli/v2 v2.17.2-0.20221006022127-8f469abc00aa
 	github.com/vishvananda/netlink v1.1.1-0.20201029203352-d40f9887b852
 	github.com/vishvananda/netns v0.0.0-20210104183010-2eb08e3e575f // indirect
