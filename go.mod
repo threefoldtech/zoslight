@@ -38,7 +38,7 @@ require (
 	github.com/stretchr/testify v1.11.1 // indirect
 	github.com/threefoldtech/0-fs v1.3.1-0.20240424140157-b488dfedcc56 // indirect
 	github.com/threefoldtech/tfchain/clients/tfchain-client-go v0.0.0-20250929084418-b950278ead30
-	github.com/threefoldtech/tfgrid-sdk-go/rmb-sdk-go v0.17.3
+	github.com/threefoldtech/tfgrid-sdk-go/rmb-sdk-go v0.17.5
 	github.com/threefoldtech/zbus v1.0.1
 	github.com/threefoldtech/zosbase v1.0.3
 	github.com/urfave/cli/v2 v2.17.2-0.20221006022127-8f469abc00aa
@@ -124,6 +124,7 @@ require (
 	github.com/rs/cors v1.10.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/safchain/ethtool v0.0.0-20201023143004-874930cb3ce0 // indirect
+	github.com/showwin/speedtest-go v1.7.10 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
