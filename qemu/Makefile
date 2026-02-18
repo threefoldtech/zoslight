@@ -26,4 +26,4 @@ net:
 
 run:
 	@echo "Running your node"
-	sudo ./vm.sh -g -n node-02 -c "farmer_id=$(id) version=v3 printk.devmsg=on runmode=dev nomodeset ssh-user=$(user)"
+	sudo ./vm.sh -m 8 -n node-02 -c "farmer_id=$(id) version=v3 printk.devmsg=on runmode=dev nomodeset ssh-user=$(user)"
