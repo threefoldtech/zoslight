@@ -11,6 +11,7 @@ import (
 	"github.com/threefoldtech/zos4/cmds/modules/contd"
 	"github.com/threefoldtech/zos4/cmds/modules/flistd"
 	"github.com/threefoldtech/zos4/cmds/modules/gateway"
+	"github.com/threefoldtech/zos4/cmds/modules/myceliumrx"
 	"github.com/threefoldtech/zos4/cmds/modules/netlightd"
 	"github.com/threefoldtech/zos4/cmds/modules/noded"
 	"github.com/threefoldtech/zos4/cmds/modules/powerd"
@@ -56,6 +57,7 @@ func main() {
 			&gateway.Module,
 			&powerd.Module,
 			&apigateway.Module,
+			&myceliumrx.Module,
 		},
 		Before: func(c *cli.Context) error {
 			if c.Bool("debug") {
