@@ -36,7 +36,7 @@ require (
 	github.com/threefoldtech/0-fs v1.3.1-0.20240424140157-b488dfedcc56 // indirect
 	github.com/threefoldtech/tfchain/clients/tfchain-client-go v0.0.0-20260302124210-526158ffbc00
 	github.com/threefoldtech/zbus v1.0.1
-	github.com/threefoldtech/zos_base v1.1.3-0.20260826123602-7a636274cecc
+	github.com/threefoldtech/zos_base v1.1.3
 	github.com/threefoldtech/zos_sdk_go/rmb-sdk-go v0.18.0
 	github.com/urfave/cli/v2 v2.27.5
 	github.com/vishvananda/netlink v1.2.1-beta.2
